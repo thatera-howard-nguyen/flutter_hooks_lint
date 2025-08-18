@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Removed the upper version constraints for analyzer and custom_lint_builder dependencies.
+
 ## 1.3.1
 
 - update dependency versions for analyzer and custom_lint packages
