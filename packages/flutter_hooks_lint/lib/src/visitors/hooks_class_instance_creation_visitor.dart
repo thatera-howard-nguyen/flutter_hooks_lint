@@ -12,7 +12,7 @@ class HooksClassInstanceCreationVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {
-    final element = node.constructorName.staticElement;
+    final element = node.constructorName.element;
     if (element != null && HooksHelper.isHooksElement(element)) {
       onVisitInstanceCreationExpression(node);
     }

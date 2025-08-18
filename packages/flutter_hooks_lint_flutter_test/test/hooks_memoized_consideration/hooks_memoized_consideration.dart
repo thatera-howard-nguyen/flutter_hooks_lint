@@ -8,6 +8,7 @@ class ConsiderationMemoizedWidget extends HookWidget {
     final key = GlobalKey<TooltipState>();
     final objectKey = GlobalObjectKey<TooltipState>("object");
     final _ = useMemoized(GlobalKey.new);
+    // ignore: unused_local_variable
     final __ = useMemoized(() => GlobalObjectKey("object_memo"));
     return Column(
         children: [key, objectKey]

@@ -28,12 +28,12 @@ class HooksExtendsRule extends DartLintRule {
           onVisitMethodInvocation: (node) {
             final instanceCreation =
                 node.thisOrAncestorOfType<InstanceCreationExpression>();
-            final element = instanceCreation?.constructorName.staticElement;
+            final element = instanceCreation?.constructorName.element;
             final isIncludedHooksBuilder =
                 element != null && HooksHelper.isHooksElement(element);
 
             final extendsElement =
-                declaration.extendsClause?.superclass.element;
+                declaration.extendsClause?.superclass.element2;
             final isExtendsHooksBuilder = extendsElement != null &&
                 HooksHelper.isHooksElement(extendsElement);
 
@@ -71,7 +71,7 @@ class _LintFix extends DartFix {
             if (extendsClause == null) {
               return;
             }
-            final extendsElement = extendsClause.superclass.element;
+            final extendsElement = extendsClause.superclass.element2;
             if (extendsElement == null) {
               return;
             }

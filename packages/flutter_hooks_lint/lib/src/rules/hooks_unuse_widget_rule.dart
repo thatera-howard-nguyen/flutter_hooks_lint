@@ -25,7 +25,7 @@ class HooksUnuseWidgetRule extends DartLintRule {
       node.visitChildren(
         HooksClassInstanceCreationVisitor(
           onVisitInstanceCreationExpression: (node) {
-            final element = node.constructorName.staticElement;
+            final element = node.constructorName.element;
             final isIncludedHooksBuilder =
                 element != null && HooksHelper.isHooksElement(element);
 
@@ -52,7 +52,7 @@ class HooksUnuseWidgetRule extends DartLintRule {
       node.visitChildren(
         HooksClassInstanceCreationVisitor(
           onVisitInstanceCreationExpression: (node) {
-            final element = node.constructorName.staticElement;
+            final element = node.constructorName.element;
             final isIncludedHooksBuilder =
                 element != null && HooksHelper.isHooksElement(element);
 
@@ -81,7 +81,7 @@ class HooksUnuseWidgetRule extends DartLintRule {
         return;
       }
 
-      final element = extendsClause.superclass.element;
+      final element = extendsClause.superclass.element2;
       if (element == null) {
         return;
       }
@@ -125,12 +125,12 @@ class _LintFix extends DartFix {
       }
 
       final superclass = extendsClause.superclass;
-      if (superclass.element == null ||
+      if (superclass.element2 == null ||
           !analysisError.sourceRange.intersects(superclass.sourceRange)) {
         return;
       }
 
-      if (!HooksHelper.isHooksElement(superclass.element!)) {
+      if (!HooksHelper.isHooksElement(superclass.element2!)) {
         return;
       }
 

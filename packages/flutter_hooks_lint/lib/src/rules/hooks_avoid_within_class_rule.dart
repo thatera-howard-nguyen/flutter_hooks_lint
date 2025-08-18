@@ -33,7 +33,7 @@ class HooksAvoidWithinClassRule extends DartLintRule {
                   final instanceCreation =
                       node.thisOrAncestorOfType<InstanceCreationExpression>();
                   final element =
-                      instanceCreation?.constructorName.staticElement;
+                      instanceCreation?.constructorName.element;
                   final isIncludedHooksBuilder =
                       element != null && HooksHelper.isHooksElement(element);
 

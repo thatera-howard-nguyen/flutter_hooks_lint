@@ -28,7 +28,8 @@ class HooksCallbackConsiderationRule extends DartLintRule {
             if ('useMemoized' == node.methodName.name) {
               final firstArgument = node.argumentList.arguments.first;
               if (firstArgument is FunctionExpression) {
-                final returnType = firstArgument.declaredElement?.returnType;
+                final returnType =
+                    firstArgument.declaredFragment?.element.returnType;
                 if (returnType is FunctionType) {
                   reporter.atNode(node, code);
                 }
@@ -64,7 +65,7 @@ class _LintFix extends DartFix {
               final arguments = node.argumentList.arguments;
               final firstArgument = arguments.first;
               if (firstArgument is FunctionExpression) {
-                final declaredElement = firstArgument.declaredElement;
+                final declaredElement = firstArgument.declaredFragment?.element;
                 final returnType = declaredElement?.returnType;
                 if (returnType is FunctionType) {
                   final changeBuilder = reporter.createChangeBuilder(

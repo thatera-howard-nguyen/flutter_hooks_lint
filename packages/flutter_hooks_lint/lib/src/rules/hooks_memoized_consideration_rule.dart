@@ -29,7 +29,7 @@ class HooksMemoizedConsiderationRule extends DartLintRule {
       if (extendsClause == null) {
         return;
       }
-      final extendsElement = extendsClause.superclass.element;
+      final extendsElement = extendsClause.superclass.element2;
       if (extendsElement == null) {
         return;
       }
@@ -37,7 +37,7 @@ class HooksMemoizedConsiderationRule extends DartLintRule {
         return;
       }
 
-      final declaredElement = node.declaredElement;
+      final declaredElement = node.declaredFragment?.element;
       final type = declaredElement?.type;
       if (type == null) {
         return;
@@ -67,7 +67,7 @@ class _LintFix extends DartFix {
         return;
       }
 
-      final declaredElement = node.declaredElement;
+      final declaredElement = node.declaredFragment?.element;
       if (declaredElement == null) {
         return;
       }

@@ -26,7 +26,7 @@ package from the AST of a single file where the function is defined.
   */
   @override
   void visitMethodInvocation(MethodInvocation node) {
-    final element = node.methodName.staticElement;
+    final element = node.methodName.element;
     if (element == null) {
       if (caller != null && _regexp.hasMatch(node.methodName.name)) {
         onVisitMethodInvocation(caller!);
@@ -36,13 +36,15 @@ package from the AST of a single file where the function is defined.
 
     final methodName = node.methodName.name;
 
-    final isDartCoreMethod = element.library?.isDartCore ?? false;
-    final isInSdkMethod = element.library?.isInSdk ?? false;
+    final isDartCoreMethod = element.library2?.isDartCore ?? false;
+    final isInSdkMethod = element.library2?.isInSdk ?? false;
 
     if (HooksHelper.isHooksElement(element)) {
       onVisitMethodInvocation(node);
     } else if (!isDartCoreMethod && !isInSdkMethod) {
-      final filePath = element.librarySource?.fullName;
+      // Using firstFragment to get source path from new element model
+      final filePath =
+          element.library2?.firstFragment.source.fullName;
       if (filePath != null) {
         final collection = AnalysisContextCollection(
           includedPaths: [filePath],
