@@ -12,7 +12,7 @@ class HooksUnuseWidgetRule extends DartLintRule {
   static const _code = LintCode(
     name: 'hooks_unuse_widget',
     problemMessage: 'No need to use flutter_hooks Widget',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   @override
@@ -81,7 +81,7 @@ class HooksUnuseWidgetRule extends DartLintRule {
         return;
       }
 
-      final element = extendsClause.superclass.element2;
+      final element = extendsClause.superclass.element;
       if (element == null) {
         return;
       }
@@ -125,12 +125,12 @@ class _LintFix extends DartFix {
       }
 
       final superclass = extendsClause.superclass;
-      if (superclass.element2 == null ||
+      if (superclass.element == null ||
           !analysisError.sourceRange.intersects(superclass.sourceRange)) {
         return;
       }
 
-      if (!HooksHelper.isHooksElement(superclass.element2!)) {
+      if (!HooksHelper.isHooksElement(superclass.element!)) {
         return;
       }
 

@@ -11,7 +11,7 @@ class HooksAvoidNestingRule extends DartLintRule {
     name: 'hooks_avoid_nesting',
     problemMessage:
         'Hooks must be used in top-level scope of the build function',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   @override

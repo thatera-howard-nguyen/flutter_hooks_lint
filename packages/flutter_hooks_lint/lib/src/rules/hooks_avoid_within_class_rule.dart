@@ -12,7 +12,7 @@ class HooksAvoidWithinClassRule extends DartLintRule {
   static const _code = LintCode(
     name: 'hooks_avoid_within_class',
     problemMessage: 'Hooks must not be defined within the class',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   @override
@@ -30,10 +30,9 @@ class HooksAvoidWithinClassRule extends DartLintRule {
             methodDeclaration.visitChildren(
               HooksMethodVisitor(
                 onVisitMethodInvocation: (node) {
-                  final instanceCreation =
-                      node.thisOrAncestorOfType<InstanceCreationExpression>();
-                  final element =
-                      instanceCreation?.constructorName.element;
+                  final instanceCreation = node
+                      .thisOrAncestorOfType<InstanceCreationExpression>();
+                  final element = instanceCreation?.constructorName.element;
                   final isIncludedHooksBuilder =
                       element != null && HooksHelper.isHooksElement(element);
 

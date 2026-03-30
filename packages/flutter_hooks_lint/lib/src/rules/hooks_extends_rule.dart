@@ -13,7 +13,7 @@ class HooksExtendsRule extends DartLintRule {
     name: 'hooks_extends',
     problemMessage:
         'The class using the flutter_hooks function is not appropriate',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   @override
@@ -26,15 +26,16 @@ class HooksExtendsRule extends DartLintRule {
       declaration.visitChildren(
         HooksMethodVisitor(
           onVisitMethodInvocation: (node) {
-            final instanceCreation =
-                node.thisOrAncestorOfType<InstanceCreationExpression>();
+            final instanceCreation = node
+                .thisOrAncestorOfType<InstanceCreationExpression>();
             final element = instanceCreation?.constructorName.element;
             final isIncludedHooksBuilder =
                 element != null && HooksHelper.isHooksElement(element);
 
             final extendsElement =
-                declaration.extendsClause?.superclass.element2;
-            final isExtendsHooksBuilder = extendsElement != null &&
+                declaration.extendsClause?.superclass.element;
+            final isExtendsHooksBuilder =
+                extendsElement != null &&
                 HooksHelper.isHooksElement(extendsElement);
 
             if (!isIncludedHooksBuilder && !isExtendsHooksBuilder) {
@@ -71,7 +72,7 @@ class _LintFix extends DartFix {
             if (extendsClause == null) {
               return;
             }
-            final extendsElement = extendsClause.superclass.element2;
+            final extendsElement = extendsClause.superclass.element;
             if (extendsElement == null) {
               return;
             }

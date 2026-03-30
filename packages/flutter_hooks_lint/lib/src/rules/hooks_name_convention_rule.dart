@@ -13,7 +13,7 @@ class HooksNameConventionRule extends DartLintRule {
     name: 'hooks_name_convention',
     problemMessage:
         'DO always prefix your hooks with use, https://pub.dev/packages/flutter_hooks#rules.',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   @override

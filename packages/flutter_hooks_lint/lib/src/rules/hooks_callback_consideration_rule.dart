@@ -12,7 +12,7 @@ class HooksCallbackConsiderationRule extends DartLintRule {
   static const _code = LintCode(
     name: 'hooks_callback_consideration',
     problemMessage: 'This seems like a thought to consider using useCallback',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   @override
@@ -73,13 +73,14 @@ class _LintFix extends DartFix {
                     priority: 30,
                   );
 
-                  final match =
-                      RegExp(r'(\(\)\s*\{\s*.*?\s*\}|\(\)\s*\=>\s*(.*))')
-                          .firstMatch(firstArgument.body.toSource());
+                  final match = RegExp(
+                    r'(\(\)\s*\{\s*.*?\s*\}|\(\)\s*\=>\s*(.*))',
+                  ).firstMatch(firstArgument.body.toSource());
                   final group = match?.group(0);
                   final args = arguments.sublist(1);
-                  final sourceCode =
-                      args.isNotEmpty ? '$group, ${args.join(', ')}' : group;
+                  final sourceCode = args.isNotEmpty
+                      ? '$group, ${args.join(', ')}'
+                      : group;
                   changeBuilder.addDartFileEdit((builder) {
                     builder.addSimpleReplacement(
                       SourceRange(node.offset, node.length),

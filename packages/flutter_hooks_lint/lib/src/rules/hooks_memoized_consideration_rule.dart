@@ -29,7 +29,7 @@ class HooksMemoizedConsiderationRule extends DartLintRule {
       if (extendsClause == null) {
         return;
       }
-      final extendsElement = extendsClause.superclass.element2;
+      final extendsElement = extendsClause.superclass.element;
       if (extendsElement == null) {
         return;
       }

@@ -26,12 +26,12 @@ void testGolden(
   String description,
   String fileName,
   Future<Iterable<PrioritizedSourceChange>> Function(ResolvedUnitResult unit)
-      body, {
+  body, {
   required String sourcePath,
 }) {
   test(description, () async {
     final file = File(sourcePath).absolute;
-    final result = await resolveFile2(path: file.path);
+    final result = await resolveFile(path: file.path);
     result as ResolvedUnitResult;
 
     final changes = await body(result).then((value) => value.toList());

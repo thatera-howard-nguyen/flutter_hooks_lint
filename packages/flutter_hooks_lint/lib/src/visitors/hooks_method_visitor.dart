@@ -36,15 +36,15 @@ package from the AST of a single file where the function is defined.
 
     final methodName = node.methodName.name;
 
-    final isDartCoreMethod = element.library2?.isDartCore ?? false;
-    final isInSdkMethod = element.library2?.isInSdk ?? false;
+    final library = element.library;
+    final isDartCoreMethod = library?.isDartCore ?? false;
+    final isInSdkMethod = library?.isInSdk ?? false;
 
     if (HooksHelper.isHooksElement(element)) {
       onVisitMethodInvocation(node);
     } else if (!isDartCoreMethod && !isInSdkMethod) {
       // Using firstFragment to get source path from new element model
-      final filePath =
-          element.library2?.firstFragment.source.fullName;
+      final filePath = library?.firstFragment.source.fullName;
       if (filePath != null) {
         final collection = AnalysisContextCollection(
           includedPaths: [filePath],
