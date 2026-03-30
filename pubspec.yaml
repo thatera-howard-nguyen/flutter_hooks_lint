@@ -2,7 +2,7 @@ name: flutter_hooks_lint_root
 repository: https://github.com/nikaera/flutter_hooks_lint
 
 environment:
-  sdk: ">=3.9.0 <4.0.0"
+  sdk: '>=3.9.0 <4.0.0'
 
 dev_dependencies:
   grinder: ^0.9.5
@@ -10,3 +10,29 @@ dev_dependencies:
 workspace:
   - packages/flutter_hooks_lint
   - packages/flutter_hooks_lint_flutter_test
+
+# Các package custom_lint* từ git lại kéo bản hosted của nhau (custom_lint ↔
+# custom_lint_builder ↔ custom_lint_core). Override về cùng một cây path local.
+dependency_overrides:
+  custom_lint:
+    git:
+      url: https://github.com/thatera-howard-nguyen/dart_custom_lint.git
+      ref: main
+      path: packages/custom_lint
+  custom_lint_builder:
+    git:
+      url: https://github.com/thatera-howard-nguyen/dart_custom_lint.git
+      ref: main
+      path: packages/custom_lint_builder
+  custom_lint_core:
+    git:
+      url: https://github.com/thatera-howard-nguyen/dart_custom_lint.git
+      ref: main
+      path: packages/custom_lint_core
+  custom_lint_visitor:
+    git:
+      url: https://github.com/thatera-howard-nguyen/dart_custom_lint.git
+      ref: main
+      path: packages/custom_lint_visitor
+  # test 1.26.x khai báo analyzer <8; flutter_hooks_lint/custom_lint cần ^10 — buộc một bản.
+  analyzer: ^10.0.1
